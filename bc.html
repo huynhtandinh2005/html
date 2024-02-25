@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bầu Cua Tôm Cá Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    button {
+        font-size: 18px;
+        padding: 10px 20px;
+        margin: 20px;
+        cursor: pointer;
+    }
+    .dice {
+        width: 100px;
+        height: 100px;
+        margin: 20px auto;
+    }
+</style>
+</head>
+<body>
+<h1>Bầu Cua Tôm Cá Game</h1>
+<div>
+    <button onclick="rollDice()">Roll Dice</button>
+</div>
+<div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Single_die_6.jpg/100px-Single_die_6.jpg" id="dice1" class="dice" style="display: none;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Single_die_6.jpg/100px-Single_die_6.jpg" id="dice2" class="dice" style="display: none;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Single_die_6.jpg/100px-Single_die_6.jpg" id="dice3" class="dice" style="display: none;">
+</div>
+<div>
+    <h2 id="result"></h2>
+</div>
+
+<script>
+    function rollDice() {
+        const dice1Value = Math.floor(Math.random() * 6) + 1;
+        const dice2Value = Math.floor(Math.random() * 6) + 1;
+        const dice3Value = Math.floor(Math.random() * 6) + 1;
+
+        document.getElementById('dice1').src = getDiceImageSrc(dice1Value);
+        document.getElementById('dice2').src = getDiceImageSrc(dice2Value);
+        document.getElementById('dice3').src = getDiceImageSrc(dice3Value);
+
+        const result = getResult(dice1Value, dice2Value, dice3Value);
+        document.getElementById('result').innerText = result;
+    }
+
+    function getDiceImageSrc(value) {
+        switch (value) {
+            case 1:
+                return 'C:\Users\huynh\OneDrive\Hình ảnh\Ảnh chụp màn hình\tép.png';
+            case 2:
+                return 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Single_die_2.jpg/100px-Single_die_2.jpg';
+            case 3:
+                return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Single_die_3.jpg/100px-Single_die_3.jpg';
+            case 4:
+                return 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Single_die_4.jpg/100px-Single_die_4.jpg';
+            case 5:
+                return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Single_die_5.jpg/100px-Single_die_5.jpg';
+            case 6:
+                return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Single_die_6.jpg/100px-Single_die_6.jpg';
+        }
+    }
+
+    function getResult(dice1Value, dice2Value, dice3Value) {
+        const items = ['Bầu', 'Cua', 'Tôm', 'Cá', 'Nai', 'Gà'];
+        const resultCounts = [0, 0, 0, 0, 0, 0];
+
+        resultCounts[dice1Value - 1]++;
+        resultCounts[dice2Value - 1]++;
+        resultCounts[dice3Value - 1]++;
+
+        let result = '';
+        for (let i = 0; i < resultCounts.length; i++) {
+            if (resultCounts[i] > 0) {
+                result += `${items[i]} x${resultCounts[i]} `;
+            }
+        }
+
+        return result;
+    }
+</script>
+</body>
+</html>
